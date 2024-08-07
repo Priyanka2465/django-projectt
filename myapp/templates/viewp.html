@@ -1,0 +1,66 @@
+{% extends 'sheader.html' %}
+{% load static %}
+{% block content %}
+
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Get 24/7 Support</p>
+						<h1>View Product</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+    {% if msg %}
+    <div class ="alert alert-danger" role="alert">
+    {{msg}}
+    </div>
+    {% endif %}
+
+	<!-- contact form -->
+    {% for i in product %}
+	<div class="col-lg-4 col-md-6 text-center strawberry" >
+        <div class="single-product-item" >
+            <div class="product-image">
+                <a href=""><img src="{{i.pimg.url}}" style="height:100px; width:100px;" alt=""></a>
+            </div>
+            <h3>{{i.pname}}</h3>
+            <p class="product-price"><span>{{i.pbrand}}</span> {{i.pprice}} Rs. </p>
+            
+            <a href="{% url 'editp' pk=i.pk %}" class="cart-btn"></i> Edit</a>
+            <a href="{% url 'deletep' pk=i.pk %}" class="cart-btn"></i> Delete</a>
+            
+        </div>
+    </div>
+    {% endfor %}
+	<!-- end contact form -->
+
+	
+
+{% endblock %}

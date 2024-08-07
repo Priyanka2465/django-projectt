@@ -1,0 +1,71 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Get 24/7 Support</p>
+						<h1>Sign up</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+    {% if msg %}
+    <div class ="alert alert-danger" role="alert">
+    {{msg}}
+    </div>
+    {% endif %}
+
+	<!-- contact form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+						<form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <select name="usertype">
+                                <option>-----Select User type----</option>
+                                <option value="buyer">Buyer</option>
+                                <option value="seller">Seller</option>
+							<p>
+								<input type="text" placeholder="Name" name="name" >
+								<input type="email" placeholder="Email" name="email" >
+							</p>
+							<p>
+								<input type="tel" placeholder="Phone" name="mobile" >
+								
+							</p>
+                            <p>
+								<input type="password" placeholder="Password" name="password" >
+								<input type="password" placeholder="Confirm Password" name="cpassword" >
+							</p>
+							<p>
+								<input type="file" name="profile" >
+								
+							</p>
+                            
+							
+							<p><input type="submit" value="Submit"></p>
+						</form>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- end contact form -->
+
+	
+
+{% endblock %}

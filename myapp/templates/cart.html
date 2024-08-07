@@ -1,0 +1,108 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+	{% if msg %}
+    <div class ="alert alert-danger" role="alert">
+    {{msg}}
+    </div>
+    {% endif %}
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-total">Total</th>
+								</tr>
+							</thead>
+							{% comment %} <input type="number" placeholder="{{i.qty}}"> {% endcomment %}
+							{% for i in cart_items %}
+							<tbody>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="{% url 'removecart' i.pk %}"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src={{i.product.pimg.url}} alt=""></td>
+									<td class="product-name">{{i.product.pname}}</td>
+									<td class="product-price">{{i.product.pprice}}</td>
+									<td class="product-quantity">
+										{% comment %} <a href=""><button>+</button></a>
+										<a href=""><button>-</button></a><br> {% endcomment %}
+										<form name="change_qty" method="post" action="{% url 'change-qty' pk=i.pk %}">
+											{% csrf_token %}
+											Qty : <input type="number" name="product_qty" value="{{i.qty}}" min="1" max="10" onchange="this.form.submit();">
+											
+										 </form>
+									</td>
+									<td class="product-total">{{i.total_price}}</td>
+									
+								</tr>
+								
+							</tbody>
+							{% empty %}
+    						<p>Your cart is empty.</p>
+    						{% endfor %}
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Subtotal: </strong></td>
+									<td>{{cart_price}} Rs.</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Shipping: </strong></td>
+									<td>00 Rs.</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td>{{cart_price}} Rs.</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							
+							<a href="{% url 'checkout' %}" class="boxed-btn black">Check Out</a>
+						</div>
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end cart -->
+	
+	
+{% endblock %}
